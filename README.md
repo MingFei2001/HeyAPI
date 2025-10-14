@@ -36,9 +36,17 @@ go run main.go
 
 The server will typically start on `http://localhost:8080` (or whatever port is configured in `main.go`).
 
+### Accessing Web Pages
+
+Once the server is running, you can open your web browser and navigate to:
+
+*   `http://localhost:8080/` - To access the home page, which serves `templates/index.html`.
+
+*(Note: Additional page paths depend on the server's routing configuration.)*
+
 ### API Endpoints
 
-The server also exposes various API endpoints. You can test these using tools like `curl`, Postman, or your browser's developer tools.
+The server also exposes various API endpoints. You can test these using tools like `curl`, Postman, or your browser\'s developer tools.
 
 Example API endpoint:
 
@@ -52,6 +60,7 @@ Example API endpoint:
 ## Project Structure (Expected)
 
 *   `main.go`: The entry point of the application, defining routes and handlers.
+*   `templates/`: Directory for static HTML templates (e.g., `index.html`).
 *   `api/`: (Optional) Directory for API-specific handlers and logic.
 
 ## Contributing
