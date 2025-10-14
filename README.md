@@ -1,6 +1,6 @@
 # HeyAPI
 
-A simple web server built with Golang, designed to serve both static web pages and RESTful API endpoints. This project is a learning endeavor to understand the fundamentals of building web applications in Go.
+A simple web server built with Golang for serving static pages and RESTful APIs. This project is for learning the basics of Go web development.
 
 ## Features
 
@@ -9,8 +9,6 @@ A simple web server built with Golang, designed to serve both static web pages a
 *   Basic routing and request handling.
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -56,7 +54,7 @@ Example API endpoint:
     ```bash
     curl http://localhost:8080/api
     ```
-*   **GET `/api/random`**: Returns a JSON object with a random number.
+*   **GET `/api/random`**: Returns a JSON object containing a random integer between 0 and 99.
     ```bash
     curl http://localhost:8080/api/random
     ```
@@ -75,7 +73,7 @@ Example API endpoint:
 
 *(Note: Specific API endpoints will be defined within the `main.go` or related handler files.)*
 
-## Project Structure (Expected)
+## Project Structure
 
 *   `main.go`: The entry point of the application, defining routes and handlers.
 *   `templates/`: Directory for static HTML templates (e.g., `index.html`).
@@ -87,10 +85,6 @@ Example API endpoint:
 *   Implement additional API endpoints.
 *   Implement a testing mechanism.
 *   Implement error handling and logging.
-
-## Contributing
-
-This is a personal learning project, but feel free to explore.
 
 ## License
 
