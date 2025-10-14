@@ -85,6 +85,9 @@ Example API endpoint:
 *   Implement error handling and logging.
 *   Dockerize the project.
 
+## Credits
+Shoutout to **The man, The myth, The legend: [ThePrimeagen](https://github.com/theprimeagen)** for introducing me to Go and helping me learn many things, *no joke* i learned half of my networking from him.
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
