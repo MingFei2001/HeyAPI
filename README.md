@@ -83,6 +83,7 @@ Example API endpoint:
 *   Implement additional API endpoints.
 *   Implement a testing mechanism.
 *   Implement error handling and logging.
+*   Dockerize the project.
 
 ## 📄 License
 
