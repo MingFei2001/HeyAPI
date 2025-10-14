@@ -48,7 +48,7 @@ Once the server is running, you can open your web browser and navigate to:
 
 ### API Endpoints
 
-The server also exposes various API endpoints. You can test these using tools like `curl`, Postman, or your browser\'s developer tools.
+The server also exposes various API endpoints. You can test these using command-line tools like `curl`, API clients like Postman, or FOSS alternatives such as Requestly.
 
 Example API endpoint:
 
@@ -61,6 +61,17 @@ Example API endpoint:
     curl http://localhost:8080/api/random
     ```
     Example response: `{"random": 42}`
+*   **GET `/api/version`**: Returns JSON object with server version, Go runtime version, and uptime.
+    ```bash
+    curl http://localhost:8080/api/version
+    ```
+    Example response: `{"go_version": "go1.21.0","status": "ok","uptime": "2m3.456s","version": "0.0.3"}`
+*   **POST `/api/echo`**: Accepts a JSON payload and echoes it back in the response.
+    ```bash
+    curl -X POST -H "Content-Type: application/json" -d '{"message": "Hello", "value": 123}' http://localhost:8080/api/echo
+    ```
+    Example response (same as input payload): `{"message": "Hello", "value": 123}`
+    *(Note: Only POST requests are allowed for this endpoint.)*
 
 *(Note: Specific API endpoints will be defined within the `main.go` or related handler files.)*
 
