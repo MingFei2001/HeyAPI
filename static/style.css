@@ -24,3 +24,22 @@ h1 {
     justify-content: center;
     margin-bottom: 1em;
 }
+
+#randomContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+#randomMsg {
+    text-align: center;
+    font-weight: bold;
+}
+
+#fillerContainer {
+    display: grid;
+    justify-content: center;
+    margin-bottom: 1em;
+    text-align: center;
+    font-size: larger;
+}
