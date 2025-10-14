@@ -70,6 +70,13 @@ Example API endpoint:
 *   `templates/`: Directory for static HTML templates (e.g., `index.html`).
 *   `api/`: (Optional) Directory for API-specific handlers and logic.
 
+## TODO
+
+*   Split `main.go` file into handlers for better organization.
+*   Implement additional API endpoints.
+*   Implement a testing mechanism.
+*   Implement error handling and logging.
+
 ## Contributing
 
 This is a personal learning project, but feel free to explore.
