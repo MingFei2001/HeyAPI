@@ -14,13 +14,15 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You need to have Go installed on your system.
-You can download it from the official Go website: [https://golang.org/dl/](https://golang.org/dl/)
+*You need to have Go installed on your system.*
+
+- On Linux, install Go using your distro's package manager:
+- On Windows, install Go using the official installer from [golang.org](https://golang.org/dl/).
 
 ### Cloning the Repository
 
 ```bash
-git clone https://github.com/your-username/HeyAPI.git
+git clone https://github.com/MingFei2001/HeyAPI.git
 cd HeyAPI
 ```
 
@@ -34,24 +36,15 @@ go run main.go
 
 The server will typically start on `http://localhost:8080` (or whatever port is configured in `main.go`).
 
-### Accessing Web Pages
-
-Once the server is running, you can open your web browser and navigate to:
-
-*   `http://localhost:8080/` - To access the home page.
-*   `http://localhost:8080/about` - To access an example 'about' page.
-
-*(Note: Actual page paths depend on the server's routing configuration.)*
-
 ### API Endpoints
 
 The server also exposes various API endpoints. You can test these using tools like `curl`, Postman, or your browser's developer tools.
 
-Example API endpoint (adjust based on actual implementation):
+Example API endpoint:
 
-*   **GET `/api/hello`**: Returns a simple "Hello, API!" message.
+*   **GET `/api`**: Returns a simple "Hey the API works!" message.
     ```bash
-    curl http://localhost:8080/api/hello
+    curl http://localhost:8080/api
     ```
 
 *(Note: Specific API endpoints will be defined within the `main.go` or related handler files.)*
@@ -59,7 +52,6 @@ Example API endpoint (adjust based on actual implementation):
 ## Project Structure (Expected)
 
 *   `main.go`: The entry point of the application, defining routes and handlers.
-*   `static/`: Directory for static web assets (HTML, CSS, JavaScript).
 *   `api/`: (Optional) Directory for API-specific handlers and logic.
 
 ## Contributing
