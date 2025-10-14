@@ -56,6 +56,11 @@ Example API endpoint:
     ```bash
     curl http://localhost:8080/api
     ```
+*   **GET `/api/random`**: Returns a JSON object with a random number.
+    ```bash
+    curl http://localhost:8080/api/random
+    ```
+    Example response: `{"random": 42}`
 
 *(Note: Specific API endpoints will be defined within the `main.go` or related handler files.)*
 
