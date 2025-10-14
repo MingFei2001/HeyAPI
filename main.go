@@ -36,7 +36,7 @@ func main() {
 
 	http.HandleFunc("/", HomeHandler)
 	http.HandleFunc("/api", APIHandler)
-	http.HandleFunc("/random", RandomHandler)
+	http.HandleFunc("/api/random", RandomHandler)
 
 	fmt.Println("Server is running at http://localhost" + port)
 	err := http.ListenAndServe(port, nil)
