@@ -1,16 +1,14 @@
-# HeyAPI
+# 🌐 HeyAPI
 
 A simple web server built with Golang for serving static pages and RESTful APIs. This project is for learning the basics of Go web development.
 
-## Features
+## ⚙️ Features
 
 *   Serves static HTML files.
 *   Handles HTTP requests for API endpoints.
 *   Basic routing and request handling.
 
-## Getting Started
-
-### Prerequisites
+## 🚀 Getting Started
 
 *You need to have Go installed on your system.*
 
@@ -73,19 +71,19 @@ Example API endpoint:
 
 *(Note: Specific API endpoints will be defined within the `main.go` or related handler files.)*
 
-## Project Structure
+## 📂 Project Structure
 
 *   `main.go`: The entry point of the application, defining routes and handlers.
 *   `templates/`: Directory for static HTML templates (e.g., `index.html`).
 *   `api/`: (Optional) Directory for API-specific handlers and logic.
 
-## TODO
+## 📝 TODO
 
 *   Split `main.go` file into handlers for better organization.
 *   Implement additional API endpoints.
 *   Implement a testing mechanism.
 *   Implement error handling and logging.
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
