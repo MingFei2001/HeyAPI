@@ -20,6 +20,10 @@ func APIHandler(w http.ResponseWriter, r *http.Request) {
 
 // main function to start the server
 func main() {
+	// Serve static files from /static/
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	http.HandleFunc("/", HomeHandler)
 	http.HandleFunc("/api", APIHandler)
 
