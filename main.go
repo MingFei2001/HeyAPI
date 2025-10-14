@@ -11,7 +11,7 @@ import (
 
 // define constant
 const port = ":8080"
-const version = "0.0.3"
+const version = "0.0.5"
 
 // define variable
 var startTime = time.Now()
