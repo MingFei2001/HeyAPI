@@ -44,6 +44,8 @@ Once the server is running, you can open your web browser and navigate to:
 
 *(Note: Additional page paths depend on the server's routing configuration.)*
 
+**Important:** During development, if CSS or other static changes don't appear, try a hard refresh (Ctrl+F5 or Cmd+Shift+R) to clear your browser's cache.
+
 ### API Endpoints
 
 The server also exposes various API endpoints. You can test these using tools like `curl`, Postman, or your browser\'s developer tools.
