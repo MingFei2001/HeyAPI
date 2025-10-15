@@ -69,17 +69,18 @@ Example API endpoint:
     Example response (same as input payload): `{"message": "Hello", "value": 123}`
     *(Note: Only POST requests are allowed for this endpoint.)*
 
-*(Note: Specific API endpoints will be defined within the `main.go` or related handler files.)*
+*(Note: Specific API endpoints are defined in `main.go` and handled by functions within the `handlers/` directory.)*
 
 ## 📂 Project Structure
 
 *   `main.go`: The entry point of the application, defining routes and handlers.
 *   `templates/`: Directory for static HTML templates (e.g., `index.html`).
-*   `api/`: (Optional) Directory for API-specific handlers and logic.
+*   `handlers/`: Directory for API-specific handlers and logic.
 
 ## 📝 TODO
 
 *   Split `main.go` file into handlers for better organization.
+*   Add a database (sqlite) to store api information.
 *   Implement additional API endpoints.
 *   Implement a testing mechanism.
 *   Implement error handling and logging.
