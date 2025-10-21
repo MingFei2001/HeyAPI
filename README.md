@@ -79,12 +79,13 @@ Example API endpoint:
 
 ## 📝 TODO
 
-*   Split `main.go` file into handlers for better organization.
-*   Add a database (sqlite) to store api information.
-*   Implement additional API endpoints.
-*   Implement a testing mechanism.
-*   Implement error handling and logging.
-*   Dockerize the project.
+[x]  Split `main.go` file into handlers for better organization.
+[ ]  Add a currency rate page with data pulled from an external API.
+[ ]  Add a database (sqlite) to store information.
+[ ]  Implement additional API endpoints.
+[ ]  Implement a testing mechanism.
+[ ]  Implement error handling and logging.
+[ ]  Dockerize the project.
 
 ## 📢 Credits
 Shoutout to **The man, The myth, The legend: [ThePrimeagen](https://github.com/theprimeagen)** for introducing me to Go and helping me learn many things, *no joke* i learned half of my networking from him.
