@@ -9,11 +9,13 @@ import (
 	"os"
 )
 
-// Hold decoded JSON response from weatherapi.com
+// This go function fetches API from weatherapi.com
+// and display it on the html page through template
+
+// define type for decoded JSON response from weatherapi.com
 type WeatherAPIResponse struct {
 	// Nested struct for location details
 	Location struct {
-		// City name
 		Name string `json:"name"`
 	} `json:"location"`
 	// Nested struct for current weather conditions
@@ -25,14 +27,14 @@ type WeatherAPIResponse struct {
 			Text string `json:"text"`
 		} `json:"condition"`
 	} `json:"current"`
-	// might return an "error" field, use HTTP status and core data to check
+	// might return an "error" field even for 200 status code
 	Error *struct {
 		Code    int    `json:"code"`
 		Message string `json:"message"`
 	} `json:"error"`
 }
 
-// holds data to pass to HTML template
+// define type for holding final data to render in HTML template
 type WeatherPageData struct {
 	City        string
 	Temperature float64
@@ -41,7 +43,7 @@ type WeatherPageData struct {
 	Error       string
 }
 
-// fetches weather data with API and renders it to HTML template
+// Main logic
 func WeatherHandler(w http.ResponseWriter, r *http.Request) {
 	// Retrieve the API key from environment variable
 	apiKey := os.Getenv("WEATHERAPI_KEY")
@@ -51,7 +53,7 @@ func WeatherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Parse the HTML template file. This prepares the template for rendering.
+	// Parse the HTML template file and prepares template for rendering
 	tmpl, err := template.ParseFiles("templates/weather.html")
 	if err != nil {
 		log.Printf("Template parsing error: %v", err)
@@ -59,7 +61,7 @@ func WeatherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Extract the 'city' query parameter from the URL (e.g., /weather?city=London).
+	// Extract the 'city' query parameter from the URL
 	city := r.URL.Query().Get("city")
 
 	// If no city is provided, render the template with no data,
@@ -68,20 +70,20 @@ func WeatherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// --- Step 1: Fetch Current Weather from weatherapi.com ---
-	// Construct the URL for weatherapi.com current weather for the specified city in Celsius.
+	// Construct URL to query weatherapi.com current weather
 	weatherAPIURL := fmt.Sprintf("http://api.weatherapi.com/v1/current.json?key=%s&q=%s", apiKey, city)
 
-	// Make an HTTP GET request to the weather API.
+	// Perform HTTP GET request to the weather API.
 	resp, err := http.Get(weatherAPIURL)
 	if err != nil {
 		log.Printf("Error fetching weather data from WeatherAPI.com: %v", err)
 		tmpl.Execute(w, WeatherPageData{Error: "Could not connect to the weather service."})
 		return
 	}
-	defer resp.Body.Close() // Ensure the response body is closed to prevent resource leaks.
+	// Ensure the response body is closed to prevent resource leaks
+	defer resp.Body.Close()
 
-	// Decode the JSON response into our `WeatherAPIResponse` struct.
+	// Decode API JSON response into `WeatherAPIResponse` struct.
 	var weatherData WeatherAPIResponse
 	if err := json.NewDecoder(resp.Body).Decode(&weatherData); err != nil {
 		log.Printf("Error decoding WeatherAPI.com JSON for city '%s': %v", city, err)
@@ -89,14 +91,14 @@ func WeatherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check for API-specific errors embedded in the JSON response
+	// If error in API response, render template with error message.
 	if weatherData.Error != nil {
 		log.Printf("WeatherAPI.com returned an error for '%s': Code %d - %s", city, weatherData.Error.Code, weatherData.Error.Message)
 		tmpl.Execute(w, WeatherPageData{Error: fmt.Sprintf("Weather API Error: %s", weatherData.Error.Message)})
 		return
 	}
 
-	// Basic validation: If the location name is empty, it usually means the city was not found.
+	// If location name in response is empty, it means the city was not found thus error
 	if weatherData.Location.Name == "" {
 		log.Printf("WeatherAPI.com: No valid location data or city not found for '%s'.", city)
 		tmpl.Execute(w, WeatherPageData{Error: fmt.Sprintf("Could not find weather for '%s'. Please try again with a valid city name.", city)})
