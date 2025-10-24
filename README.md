@@ -44,9 +44,7 @@ Once the server is running, you can open your web browser and navigate to:
 The weather page (`/weather`) fetches current weather conditions from `weatherapi.com`. To make this work, you need an API key from `weatherapi.com` and must set it as an environment variable before running the server.
 
 1.  **Obtain a Key from `weatherapi.com`**:
-    *   Go to [https://www.weatherapi.com/](https://www.weatherapi.com/).
-    *   Sign up for a free account or log in.
-    *   Find and copy your API key from your dashboard.
+*   Go to [weatherapi.com](https://www.weatherapi.com/), sign up or log in, and copy your API key from your dashboard.
 
 2.  **Set the Environment Variable**:
     Before running `go run main.go`, open your terminal and set the `WEATHERAPI_KEY` environment variable:
@@ -55,8 +53,6 @@ The weather page (`/weather`) fetches current weather conditions from `weatherap
     export WEATHERAPI_KEY="your_actual_weatherapi_key_here"
     ```
     (Replace `"your_actual_weatherapi_key_here"` with the key you copied. This variable is only set for the current terminal session.)
-
-*(Note: Additional page paths depend on the server's routing configuration.)*
 
 **Important:** During development, if CSS or other static changes don't appear, try a hard refresh (Ctrl+F5 or Cmd+Shift+R) to clear your browser's cache.
 
