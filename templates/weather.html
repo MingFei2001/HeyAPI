@@ -1,27 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <title>Weather</title>
-    <link rel="stylesheet" href="/static/style.css" />
-</head>
-<body>
-    <h1>Search Weather by City</h1>
-    <form action="/weather" method="get">
-        <input type="text" name="city" placeholder="Enter city name" required>
-        <button type="submit">Search</button>
-    </form>
+    <head>
+        <title>HeyAPI - Weather</title>
+        <link rel="stylesheet" href="/static/style.css" />
+    </head>
+    <body>
+        <h1>Welcome to the HeyAPI Weather Page!</h1>
+        <p id="description">
+            Here you can search for current weather conditions in any city.
+        </p>
 
-    {{/* This block will only render if there is data to display */}}
-    {{if .City}}
-        <h2>Weather in {{.City}}</h2>
-        <p>Temperature: {{printf "%.1f" .Temperature}}°C</p>
-        <p>Humidity: {{.Humidity}}%</p>
-        <p>Description: {{.Description}}</p>
-    {{end}}
+        <div id="weatherSearchContainer">
+            <form action="/weather" method="get">
+                <input
+                    type="text"
+                    name="city"
+                    placeholder="Enter city name"
+                    required
+                />
+                <button type="submit">Search</button>
+            </form>
+        </div>
 
-    {{/* This block will render if there is an error message */}}
-    {{if .Error}}
-        <p style="color: red;">{{.Error}}</p>
-    {{end}}
-</body>
+        {{/* This block will only render if there is data to display OR an error
+        message */}} {{if or .City .Error}}
+        <div id="weatherResultsContainer">
+            {{if .City}}
+            <h2>Current Weather in {{.City}}</h2>
+            <p>
+                <strong>Temperature:</strong> {{printf "%.1f" .Temperature}}°C
+            </p>
+            <p><strong>Humidity:</strong> {{.Humidity}}%</p>
+            <p><strong>Condition:</strong> {{.Description}}</p>
+            {{end}} {{if .Error}}
+            <p style="color: red"><strong>Error:</strong> {{.Error}}</p>
+            {{end}}
+        </div>
+        {{end}}
+
+        <div id="fillerContainer">
+            <p>
+                This weather feature demonstrates how the HeyAPI server can
+                integrate with external services.
+            </p>
+            <p>
+                It fetches real-time weather data from `weatherapi.com` based on
+                your city input.
+            </p>
+            <p style="font-style: italic">
+                (Remember to set your `WEATHERAPI_KEY` environment variable
+                before running the server!)
+            </p>
+        </div>
+    </body>
 </html>
