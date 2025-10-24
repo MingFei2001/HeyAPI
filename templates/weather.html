@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <h1>Search Weather by City</h1>
+    <form action="/weather" method="get">
+        <input type="text" name="city" placeholder="Enter city name" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {{/* This block will only render if there is data to display */}}
+    {{if .City}}
+        <h2>Weather in {{.City}}</h2>
+        <p>Temperature: {{printf "%.1f" .Temperature}}°C</p>
+        <p>Humidity: {{.Humidity}}%</p>
+        <p>Description: {{.Description}}</p>
+    {{end}}
+
+    {{/* This block will render if there is an error message */}}
+    {{if .Error}}
+        <p style="color: red;">{{.Error}}</p>
+    {{end}}
+</body>
+</html>
