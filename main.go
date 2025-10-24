@@ -27,6 +27,7 @@ func main() {
 	http.HandleFunc("/api/random", handlers.RandomHandler)
 	http.HandleFunc("/api/version", handlers.VersionHandler(version, startTime))
 	http.HandleFunc("/api/echo", handlers.EchoHandler)
+	http.HandleFunc("/weather", handlers.WeatherHandler)
 
 	// Stdout Message
 	fmt.Println("Server is running at http://localhost" + port)
