@@ -63,15 +63,13 @@ func WeatherHandler(w http.ResponseWriter, r *http.Request) {
 	city := r.URL.Query().Get("city")
 
 	// If no city is provided, render the template with no data,
-	// which means only the search form will be displayed.
 	if city == "" {
 		tmpl.Execute(w, nil)
 		return
 	}
 
 	// --- Step 1: Fetch Current Weather from weatherapi.com ---
-	// Construct the URL for the weatherapi.com current weather endpoint.
-	// We're requesting data for the specified city and using Celsius units by default.
+	// Construct the URL for weatherapi.com current weather for the specified city in Celsius.
 	weatherAPIURL := fmt.Sprintf("http://api.weatherapi.com/v1/current.json?key=%s&q=%s", apiKey, city)
 
 	// Make an HTTP GET request to the weather API.
@@ -91,8 +89,7 @@ func WeatherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check for API-specific errors embedded in the JSON response.
-	// WeatherAPI.com often returns a 200 OK even with an error message in JSON.
+	// Check for API-specific errors embedded in the JSON response
 	if weatherData.Error != nil {
 		log.Printf("WeatherAPI.com returned an error for '%s': Code %d - %s", city, weatherData.Error.Code, weatherData.Error.Message)
 		tmpl.Execute(w, WeatherPageData{Error: fmt.Sprintf("Weather API Error: %s", weatherData.Error.Message)})
