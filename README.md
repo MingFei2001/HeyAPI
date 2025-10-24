@@ -99,6 +99,7 @@ Example API endpoint:
 ## 📝 TODO
 
 [x]  Split `main.go` file into handlers for better organization.
+[x]  Implement a weather page using an external API.
 [ ]  Add a currency rate page with data pulled from an external API.
 [ ]  Add a database (sqlite) to store information.
 [ ]  Implement additional API endpoints.
