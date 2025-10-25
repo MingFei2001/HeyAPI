@@ -15,18 +15,9 @@ A simple web server built with Golang for serving static pages and RESTful APIs.
 - On Linux, install Go using your distro's package manager:
 - On Windows, install Go using the official installer from [golang.org](https://golang.org/dl/).
 
-### Cloning the Repository
-
 ```bash
 git clone https://github.com/MingFei2001/HeyAPI.git
 cd HeyAPI
-```
-
-### Running the Server
-
-To run the web server, execute the following command in the project root directory:
-
-```bash
 go run main.go
 ```
 
@@ -36,12 +27,12 @@ The server will typically start on `http://localhost:8080` (or whatever port is 
 
 Once the server is running, you can open your web browser and navigate to:
 
-*   `http://localhost:8080/` - To access the home page, which serves `templates/index.html`.
+*   `http://localhost:8080/` - To access the home page.
 *   `http://localhost:8080/weather` - To access the weather page.
 
 #### Weather API Key Setup
 
-The weather page (`/weather`) fetches current weather conditions from `weatherapi.com`. To make this work, you need an API key from `weatherapi.com` and must set it as an environment variable before running the server.
+The weather page (`/weather`) fetches current weather conditions from `weatherapi.com`. To make this work, you need an API key from `weatherapi.com` and set it as environment variable to fetch the weather information.
 
 1.  **Obtain a Key from `weatherapi.com`**:
 *   Go to [weatherapi.com](https://www.weatherapi.com/), sign up or log in, and copy your API key from your dashboard.
@@ -54,11 +45,11 @@ The weather page (`/weather`) fetches current weather conditions from `weatherap
     ```
     (Replace `"your_actual_weatherapi_key_here"` with the key you copied. This variable is only set for the current terminal session.)
 
-**Important:** During development, if CSS or other static changes don't appear, try a hard refresh (Ctrl+F5 or Cmd+Shift+R) to clear your browser's cache.
+**Important:** During development, if CSS or other static changes don't appear, try a hard refresh (Ctrl+F5 or Cmd+Shift+R) to clear browser's cache.
 
 ### API Endpoints
 
-The server also exposes various API endpoints. You can test these using command-line tools like `curl`, API clients like Postman, or FOSS alternatives such as Requestly.
+The server also serves various API endpoints. You can test these using tools like `curl`, API clients like `Postman`, or FOSS alternatives like `Requestly`.
 
 Example API endpoint:
 
@@ -83,7 +74,7 @@ Example API endpoint:
     Example response (same as input payload): `{"message": "Hello", "value": 123}`
     *(Note: Only POST requests are allowed for this endpoint.)*
 
-*(Note: Specific API endpoints are defined in `main.go` and handled by functions within the `handlers/` directory.)*
+*(Note: API endpoints are defined in `main.go` and handled by functions in `handlers/` directory.)*
 
 ## 📂 Project Structure
 
@@ -95,12 +86,11 @@ Example API endpoint:
 ## 📝 TODO
 
 - [x] Split `main.go` file into handlers for better organization.
-- [x] Implement a weather page using an external API.
-- [ ] Add a currency rate page with data pulled from an external API.
+- [x] Implement a weather page using external API.
+- [ ] Add a currency rate page using external API.
 - [ ] Add a database (sqlite) to store information.
 - [ ] Implement additional API endpoints.
 - [ ] Implement a testing mechanism.
-- [ ] Implement error handling and logging.
 - [ ] Dockerize the project.
 
 ## 📢 Credits
