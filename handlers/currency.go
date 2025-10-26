@@ -2,6 +2,7 @@ package handlers
 
 import "net/http"
 
+// main logic
 func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
-	// Implement currency conversion logic here
+	http.ServeFile(w, r, "templates/currency.html")
 }
