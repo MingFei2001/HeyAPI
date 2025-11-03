@@ -11,7 +11,7 @@ import (
 	"strings" // Needed for strings.ToUpper
 )
 
-// CurrencyAPIResponse defines the structure for api.fxratesapi.com's latest rates endpoint response
+// defines structure for api.fxratesapi.com endpoint response
 type CurrencyAPIResponse struct {
 	Success   bool               `json:"success"` // Indicates if the API call was successful
 	Timestamp int64              `json:"timestamp"`
@@ -19,7 +19,7 @@ type CurrencyAPIResponse struct {
 	Date      string             `json:"date"`  // The date for which rates are given
 	Rates     map[string]float64 `json:"rates"` // A map of currency codes to their exchange rates
 
-	// This field will capture API-specific errors if success is false
+	// capture errors if success is false
 	Error *struct {
 		Code int    `json:"code"`
 		Type string `json:"type"`
@@ -27,7 +27,7 @@ type CurrencyAPIResponse struct {
 	} `json:"error"`
 }
 
-// CurrencyPageData holds the specific data to render in the HTML template
+// holds data to render in HTML template
 type CurrencyPageData struct {
 	Amount         float64
 	FromCurrency   string
@@ -37,17 +37,17 @@ type CurrencyPageData struct {
 	Error          string // To display user-friendly error messages on the page
 }
 
-// CurrencyHandler fetches currency conversion data using api.fxratesapi.com and renders it to an HTML page.
+// fetches currency conversion rate and renders it to HTML page using templates
 func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
-	// 1. Get API Key from environment variable
-	apiKey := os.Getenv("EXCHANGERATE_API_KEY") // Using the specified environment variable name
+	// Get API Key from environment variable
+	apiKey := os.Getenv("EXCHANGERATE_API_KEY")
 	if apiKey == "" {
 		log.Println("Error: EXCHANGERATE_API_KEY environment variable not set.")
 		http.Error(w, "Currency Exchange API key is not configured.", http.StatusInternalServerError)
 		return
 	}
 
-	// 2. Parse the HTML template file
+	// Parse the HTML template file
 	tmpl, err := template.ParseFiles("templates/currency.html")
 	if err != nil {
 		log.Printf("Template parsing error: %v", err)
@@ -55,19 +55,18 @@ func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 3. Extract user inputs from query parameters
+	// Extract user inputs from query parameters
 	amountStr := r.URL.Query().Get("amount")
 	fromCurrency := r.URL.Query().Get("from")
 	toCurrency := r.URL.Query().Get("to")
 
-	// 4. Handle initial page load or incomplete input
-	// If any of the required parameters are missing, render the empty form.
+	// Handle initial page load or incomplete input as empty form
 	if amountStr == "" || fromCurrency == "" || toCurrency == "" {
 		tmpl.Execute(w, nil)
 		return
 	}
 
-	// Convert amount string to float64
+	// check and clean amountStr by converting it to float64
 	amount, err := strconv.ParseFloat(amountStr, 64)
 	if err != nil {
 		log.Printf("Error parsing amount '%s': %v", amountStr, err)
@@ -83,15 +82,13 @@ func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
 	fromCurrency = strings.ToUpper(fromCurrency)
 	toCurrency = strings.ToUpper(toCurrency)
 
-	// 5. Construct API URL for the "latest" rates endpoint
-	// Request only the target currency to keep the response small and efficient.
-	// Endpoint: https://api.fxratesapi.com/latest?api_key=YOUR_ACCESS_TOKEN&base=USD&currencies=EUR&format=json
+	// Construct API URL for "latest" rates endpoint
 	currencyAPIURL := fmt.Sprintf(
 		"https://api.fxratesapi.com/latest?api_key=%s&base=%s&currencies=%s&format=json",
 		apiKey, fromCurrency, toCurrency,
 	)
 
-	// 6. Make HTTP GET request to the currency API
+	// Call the currency API using GET method
 	resp, err := http.Get(currencyAPIURL)
 	if err != nil {
 		log.Printf("Error fetching currency data from api.fxratesapi.com: %v", err)
@@ -100,7 +97,7 @@ func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer resp.Body.Close()
 
-	// 7. Decode JSON response
+	// Decode JSON response into variable
 	var currencyData CurrencyAPIResponse
 	if err := json.NewDecoder(resp.Body).Decode(&currencyData); err != nil {
 		log.Printf("Error decoding api.fxratesapi.com JSON: %v", err)
@@ -108,8 +105,7 @@ func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 8. Check for API-specific errors
-	// api.fxratesapi.com uses a "success: false" field and an "error" object for API errors.
+	// Check for API-specific errors by "success: false" and "error" object in API errors
 	if !currencyData.Success {
 		if currencyData.Error != nil {
 			log.Printf("FXRatesAPI returned error for %s to %s: Code %d - %s", fromCurrency, toCurrency, currencyData.Error.Code, currencyData.Error.Info)
@@ -121,7 +117,6 @@ func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 9. Extract the exchange rate and perform calculation
 	// Ensure the base currency in the response matches what we requested
 	if currencyData.Base != fromCurrency {
 		log.Printf("API returned base currency '%s', but requested '%s'.", currencyData.Base, fromCurrency)
@@ -129,6 +124,7 @@ func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Extract the exchange rate and perform calculation
 	exchangeRate, ok := currencyData.Rates[toCurrency]
 	if !ok {
 		log.Printf("Target currency '%s' not found in API response rates for base '%s'.", toCurrency, fromCurrency)
@@ -142,7 +138,7 @@ func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
 
 	convertedValue := amount * exchangeRate
 
-	// 10. Prepare data for HTML template (CurrencyPageData)
+	// Prepare data for HTML template
 	pageData := CurrencyPageData{
 		Amount:         amount,
 		FromCurrency:   fromCurrency,
@@ -152,6 +148,6 @@ func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
 		Error:          "", // No error
 	}
 
-	// 11. Execute the template
+	// Render the template if all goes well
 	tmpl.Execute(w, pageData)
 }
