@@ -30,7 +30,9 @@ h1 {
 
 /* General button/input styling to unify the look if other buttons exist */
 button,
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
+    /* Added input[type="number"] for currency inputs */
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -97,41 +99,71 @@ input[type="text"] {
     margin-bottom: 0;
 }
 
-/* Refined styles for the weather search form */
-#weatherSearchContainer {
+/* --- Form and Input Styling (Common) --- */
+
+/* Containers for both weather and currency forms */
+#weatherSearchContainer,
+#currencyConverterContainer {
     display: flex;
-    justify-content: center; /* Ensures the form itself is centered */
+    justify-content: center; /* Centers the form itself horizontally */
     margin-bottom: 3em; /* More space below the form */
     width: 100%; /* Allows flexbox to distribute space */
 }
 
-#weatherSearchContainer form {
+/* Styling for the form element within its container */
+#weatherSearchContainer form,
+#currencyConverterContainer form {
     display: flex;
-    gap: 15px; /* Increased gap for better spacing */
-    align-items: center;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
-    justify-content: center; /* Centers items within the form if they wrap */
-    max-width: 500px; /* Increased max-width for the form itself */
+    flex-direction: column; /* Stack elements vertically in the form */
+    gap: 15px; /* Space between input group and button */
+    align-items: center; /* Center form content */
+    max-width: 500px; /* Max width for the form box */
     background-color: #3e4451; /* Darker background for the form area */
     padding: 20px 30px; /* Padding inside the form box */
     border-radius: 10px; /* More rounded corners for the form box */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); /* More prominent shadow for the form box */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); /* More prominent shadow */
 }
 
-#weatherSearchContainer input[type="text"] {
+/* Specifically for the group of inputs in the currency form */
+.currency-inputs-group {
+    display: flex;
+    flex-wrap: wrap; /* Allow inputs to wrap on smaller screens */
+    justify-content: center; /* Center inputs within the group */
+    gap: 10px; /* Space between individual inputs */
+    width: 100%; /* Take full width within the form */
+    max-width: 400px; /* Max width for the group, can be adjusted */
+}
+
+/* Input text and number fields (general styling) */
+#weatherSearchContainer input[type="text"],
+#currencyConverterContainer input[type="text"],
+#currencyConverterContainer input[type="number"] {
     padding: 14px 18px; /* More generous padding */
     border: 2px solid #61afef; /* Thicker border */
     border-radius: 8px;
     background-color: #2c3038; /* Slightly darker input background */
     color: #ffffff; /* White text for better contrast */
     font-size: 1.15em; /* Slightly larger font */
-    width: 250px; /* Fixed width for consistency, adjust as needed */
+    width: 150px; /* Default width for inputs in currency form */
     box-sizing: border-box; /* Crucial for predictable width with padding/border */
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
     transition: all 0.3s ease-in-out;
 }
 
-#weatherSearchContainer input[type="text"]:focus {
+/* Specific width adjustment for the weather input */
+#weatherSearchContainer input[type="text"] {
+    width: 250px; /* Wider for the single city input */
+}
+
+/* Specific width adjustment for the amount input in currency form */
+#currencyConverterContainer input[name="amount"] {
+    width: 180px; /* Make amount input a bit wider */
+}
+
+/* Focus state for all inputs */
+#weatherSearchContainer input[type="text"]:focus,
+#currencyConverterContainer input[type="text"]:focus,
+#currencyConverterContainer input[type="number"]:focus {
     outline: none;
     border-color: #c678dd;
     box-shadow:
@@ -140,11 +172,16 @@ input[type="text"] {
     background-color: #353a45; /* Slightly lighter on focus */
 }
 
-#weatherSearchContainer input[type="text"]::placeholder {
+/* Placeholder styling for all inputs */
+#weatherSearchContainer input[type="text"]::placeholder,
+#currencyConverterContainer input[type="text"]::placeholder,
+#currencyConverterContainer input[type="number"]::placeholder {
     color: #8b949e; /* Adjusted placeholder color */
 }
 
-#weatherSearchContainer button[type="submit"] {
+/* Button styles (submit button for forms) */
+#weatherSearchContainer button[type="submit"],
+#currencyConverterContainer button[type="submit"] {
     padding: 14px 30px; /* More generous padding */
     background-color: #61afef;
     color: #282c34;
@@ -162,20 +199,25 @@ input[type="text"] {
         box-shadow 0.2s ease;
 }
 
-#weatherSearchContainer button[type="submit"]:hover {
+#weatherSearchContainer button[type="submit"]:hover,
+#currencyConverterContainer button[type="submit"]:hover {
     background-color: #56a0e6;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-#weatherSearchContainer button[type="submit"]:active {
+#weatherSearchContainer button[type="submit"]:active,
+#currencyConverterContainer button[type="submit"]:active {
     transform: translateY(0);
     background-color: #4b8cd9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Styling for weather results container */
-#weatherResultsContainer {
+/* --- Results Container Styling (Common) --- */
+
+/* Styling for results containers (both weather and currency) */
+#weatherResultsContainer,
+#currencyResultsContainer {
     text-align: center;
     margin-bottom: 2.5em; /* More space */
     padding: 25px; /* Increased padding */
@@ -187,23 +229,27 @@ input[type="text"] {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4); /* More prominent shadow */
 }
 
-#weatherResultsContainer h2 {
+#weatherResultsContainer h2,
+#currencyResultsContainer h2 {
     color: #c678dd;
     margin-bottom: 1em; /* More space below heading */
     font-size: 2em; /* Larger heading */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-#weatherResultsContainer p {
+#weatherResultsContainer p,
+#currencyResultsContainer p {
     margin-bottom: 0.8em; /* Adjusted margin */
     font-size: 1.2em; /* Larger text */
     line-height: 1.5; /* Improved line spacing */
 }
 
-#weatherResultsContainer p strong {
+#weatherResultsContainer p strong,
+#currencyResultsContainer p strong {
     color: #98c379;
 }
 
-#weatherResultsContainer p:last-of-type {
+#weatherResultsContainer p:last-of-type,
+#currencyResultsContainer p:last-of-type {
     margin-bottom: 0; /* No margin below the last paragraph in results */
 }
