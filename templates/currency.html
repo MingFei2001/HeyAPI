@@ -1,43 +1,83 @@
 <!doctype html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/static/style.css" />
         <title>HeyAPI - Currency Converter</title>
+        <link rel="stylesheet" href="/static/style.css" />
     </head>
     <body>
-        <h1>Currency Converter</h1>
-
+        <h1>Welcome to the HeyAPI Currency Converter!</h1>
         <p id="description">
-            Here you can convert between different currencies. <br />
-            Enter the amount and currency you want to convert to.
+            Convert amounts between different currencies using real-time rates.
         </p>
 
-        <div id="currencyExchangeForm">
-            <form action="/currency" method="post">
-                <label for="amount">Amount:</label>
-                <input
-                    type="number"
-                    id="amount"
-                    name="amount"
-                    step="0.01"
-                    required
-                />
-                <label for="from">From:</label>
-                <select id="from" name="from" required>
-                    <option value="USD">USD</option>
-                    <option value="JPY">JPY</option>
-                    <option value="MYR">MYR</option>
-                </select>
-                <label for="to">To:</label>
-                <select id="to" name="to" required>
-                    <option value="USD">USD</option>
-                    <option value="JPY">JPY</option>
-                    <option value="MYR">MYR</option>
-                </select>
+        <div id="currencyConverterContainer">
+            <form action="/currency" method="get">
+                <div class="currency-inputs-group">
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="Amount (e.g., 100)"
+                        step="0.01"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="from"
+                        placeholder="From (e.g., USD)"
+                        maxlength="3"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="to"
+                        placeholder="To (e.g., EUR)"
+                        maxlength="3"
+                        required
+                    />
+                </div>
                 <button type="submit">Convert</button>
             </form>
+        </div>
+
+        {{/* This block will only render if there is data to display OR an error
+        message */}} {{if or .ConvertedValue .Error}}
+        <div id="currencyResultsContainer" class="results-box">
+            {{if .ConvertedValue}}
+            <h2>Conversion Result</h2>
+            <p>
+                <strong>Amount:</strong> {{printf "%.2f" .Amount}}
+                {{.FromCurrency}}
+            </p>
+            <p>
+                <strong>Rate:</strong> 1 {{.FromCurrency}} = {{printf "%.6f"
+                .ExchangeRate}} {{.ToCurrency}}
+            </p>
+            <p>
+                <strong>Converted Value:</strong> {{printf "%.2f"
+                .ConvertedValue}} {{.ToCurrency}}
+            </p>
+            {{end}} {{if .Error}}
+            <p style="color: red"><strong>Error:</strong> {{.Error}}</p>
+            {{end}}
+        </div>
+        {{end}}
+
+        <div id="fillerContainer">
+            <p>
+                This currency converter demonstrates another integration with an
+                external API.
+            </p>
+            <p>
+                It uses `api.fxratesapi.com` to fetch current exchange rates and
+                perform calculations.
+            </p>
+            <p style="font-style: italic">
+                (Remember to set your `EXCHANGERATE_API_KEY` environment
+                variable before running the server! If you're using a free tier,
+                ensure your `base` currency is supported and that you are
+                allowed to fetch specific `to` currencies. Currency codes must
+                be 3-letter ISO codes, e.g., USD, EUR.)
+            </p>
         </div>
     </body>
 </html>

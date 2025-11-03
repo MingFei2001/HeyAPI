@@ -28,7 +28,7 @@ func main() {
 	http.HandleFunc("/api/version", handlers.VersionHandler(version, startTime))
 	http.HandleFunc("/api/echo", handlers.EchoHandler)
 	http.HandleFunc("/weather", handlers.WeatherHandler)
-	http.HandleFunc("/currency", handlers.CurrencyHandler)
+	http.HandleFunc("/currency", handlers.CurrencyHandler) // Register the CurrencyHandler
 
 	// Stdout Message
 	fmt.Println("Server is running at http://localhost" + port)
