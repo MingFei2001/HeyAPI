@@ -21,7 +21,7 @@ cd HeyAPI
 go run main.go
 ```
 
-The server will typically start on `http://localhost:8080` (or whatever port is configured in `main.go`).
+The server will by default start on `http://localhost:8080` (you can configure it in `main.go`).
 
 ### Accessing Web Pages
 
