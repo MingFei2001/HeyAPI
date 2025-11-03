@@ -54,12 +54,12 @@ The weather page (`/weather`) fetches current weather conditions from `weatherap
 
 **Currency Converter API Key Setup (`api.fxratesapi.com`)**:
 
-The currency converter page (`/currency`) fetches exchange rates from `api.fxratesapi.com`. You need an API key from this service and must set it as an environment variable.
+The currency converter page (`/currency`) fetches exchange rates from `api.fxratesapi.com`. You need an API key from this service and set it as an environment variable.
 
 1.  **Obtain a Key from `api.fxratesapi.com`**:
     *   Go to [https://fxratesapi.com/](https://fxratesapi.com/).
     *   Sign up for a free account or log in.
-    *   Find and copy your API key (often referred to as 'Access Token') from your dashboard.
+    *   Find and copy your API key (or 'Access Token') from your dashboard.
 
 2.  **Set the Environment Variable**:\
     Before running `go run main.go`, open your terminal and set the `EXCHANGERATE_API_KEY` environment variable:
@@ -112,7 +112,8 @@ Example API endpoint:
 
 - [x] Split `main.go` file into handlers for better organization.
 - [x] Implement a weather page using external API.
-- [x] Add a currency rate page using external API.
+- [x] Implement a currency exchange rate page using external API.
+- [ ] Fix the form in `templates/currency.html`.
 - [ ] Add a database (sqlite) to store information.
 - [ ] Implement additional API endpoints.
 - [ ] Implement a testing mechanism.
