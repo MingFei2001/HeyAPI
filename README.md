@@ -29,21 +29,46 @@ Once the server is running, you can open your web browser and navigate to:
 
 *   `http://localhost:8080/` - To access the home page.
 *   `http://localhost:8080/weather` - To access the weather page.
+*   `http://localhost:8080/currency` - To access the currency converter page.
 
-#### Weather API Key Setup
+#### API Key Setup
 
-The weather page (`/weather`) fetches current weather conditions from `weatherapi.com`. To make this work, you need an API key from `weatherapi.com` and set it as environment variable to fetch the weather information.
+The server integrates with external APIs for certain features.
+
+**Weather API Key Setup (`weatherapi.com`)**:
+
+The weather page (`/weather`) fetches current weather conditions from `weatherapi.com`. To make this work, you need an API key from `weatherapi.com` and must set it as an environment variable before running the server.
 
 1.  **Obtain a Key from `weatherapi.com`**:
-*   Go to [weatherapi.com](https://www.weatherapi.com/), sign up or log in, and copy your API key from your dashboard.
+    *   Go to [https://www.weatherapi.com/](https://www.weatherapi.com/).
+    *   Sign up for a free account or log in.
+    *   Find and copy your API key from your dashboard.
 
-2.  **Set the Environment Variable**:
+2.  **Set the Environment Variable**:\
     Before running `go run main.go`, open your terminal and set the `WEATHERAPI_KEY` environment variable:
 
     ```bash
-    export WEATHERAPI_KEY="your_actual_weatherapi_key_here"
+    export WEATHERAPI_KEY="your_weatherapi_key_here"
     ```
-    (Replace `"your_actual_weatherapi_key_here"` with the key you copied. This variable is only set for the current terminal session.)
+    (Replace `"your_weatherapi_key_here"` with your actual key. This variable is only set for the current terminal session.)
+
+**Currency Converter API Key Setup (`api.fxratesapi.com`)**:
+
+The currency converter page (`/currency`) fetches exchange rates from `api.fxratesapi.com`. You need an API key from this service and must set it as an environment variable.
+
+1.  **Obtain a Key from `api.fxratesapi.com`**:
+    *   Go to [https://fxratesapi.com/](https://fxratesapi.com/).
+    *   Sign up for a free account or log in.
+    *   Find and copy your API key (often referred to as 'Access Token') from your dashboard.
+
+2.  **Set the Environment Variable**:\
+    Before running `go run main.go`, open your terminal and set the `EXCHANGERATE_API_KEY` environment variable:
+
+    ```bash
+    export EXCHANGERATE_API_KEY="your_fxratesapi_key_here"
+    ```
+    (Replace `"your_fxratesapi_key_here"` with your actual key. This variable is only set for the current terminal session.)
+
 
 **Important:** During development, if CSS or other static changes don't appear, try a hard refresh (Ctrl+F5 or Cmd+Shift+R) to clear browser's cache.
 
@@ -87,7 +112,7 @@ Example API endpoint:
 
 - [x] Split `main.go` file into handlers for better organization.
 - [x] Implement a weather page using external API.
-- [ ] Add a currency rate page using external API.
+- [x] Add a currency rate page using external API.
 - [ ] Add a database (sqlite) to store information.
 - [ ] Implement additional API endpoints.
 - [ ] Implement a testing mechanism.
