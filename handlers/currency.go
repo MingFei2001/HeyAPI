@@ -39,6 +39,13 @@ type CurrencyPageData struct {
 
 // fetches currency conversion rate and renders it to HTML page using templates
 func CurrencyHandler(w http.ResponseWriter, r *http.Request) {
+	// Ensure the method is GET only
+	if r.Method != http.MethodGet {
+		log.Printf("Invalid method: %s. Only GET is allowed.", r.Method)
+		http.Error(w, "Method not allowed. Only GET is allowed.", http.StatusMethodNotAllowed)
+		return
+	}
+
 	// Get API Key from environment variable
 	apiKey := os.Getenv("EXCHANGERATE_API_KEY")
 	if apiKey == "" {
