@@ -24,11 +24,17 @@ func main() {
 	// Define API endpoints to route
 	http.HandleFunc("/", handlers.HomeHandler)
 	http.HandleFunc("/api", handlers.APIHandler)
-	http.HandleFunc("/api/random", handlers.RandomHandler)
-	http.HandleFunc("/api/version", handlers.VersionHandler(version, startTime))
-	http.HandleFunc("/api/echo", handlers.EchoHandler)
+	http.HandleFunc("/random", handlers.RandomHandler)
+	http.HandleFunc("/version", handlers.VersionHandler(version, startTime))
+	http.HandleFunc("/echo", handlers.EchoHandler)
 	http.HandleFunc("/weather", handlers.WeatherHandler)
-	http.HandleFunc("/currency", handlers.CurrencyHandler) // Register the CurrencyHandler
+	http.HandleFunc("/currency", handlers.CurrencyHandler)
+
+	// this is the note API part
+	http.HandleFunc("/notes/create", handlers.CreateNoteHandler)
+	http.HandleFunc("/notes", handlers.GetNotesHandler)
+	http.HandleFunc("/notes/get", handlers.GetNoteHandler)
+	http.HandleFunc("/notes/delete", handlers.DeleteNoteHandler)
 
 	// Stdout Message
 	fmt.Println("Server is running at http://localhost" + port)
