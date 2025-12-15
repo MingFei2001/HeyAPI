@@ -1,6 +1,6 @@
 // fetch the random number API as data
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/api/random")
+  fetch("/random")
     .then((res) => res.json())
     .then((data) => {
       document.getElementById("randomMsg").textContent =

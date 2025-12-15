@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/style.css" />
+        <title>HeyAPI - Notes</title>
+    </head>
+    <body>
+        <h1>Welcome to the HeyAPI Notes Page!</h1>
+        <p id="description">
+            Create and manage your notes. Add a new note using the form below,
+            and view your past notes in the table.
+        </p>
+
+        <div id="notesFormContainer">
+            <form action="/notes/create" method="post">
+                <input
+                    type="text"
+                    name="note"
+                    placeholder="Enter your note here..."
+                    required
+                />
+                <button type="submit">Add Note</button>
+            </form>
+        </div>
+
+        {{/* This block will only render if there are notes */}} {{if .Notes}}
+        <div id="notesTableContainer">
+            <h2>Your Notes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Note</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .Notes}}
+                    <tr>
+                        <td>{{.ID}}</td>
+                        <td>{{.Note}}</td>
+                        <td>{{.Timestamp}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+        {{else}}
+        <div id="noNotesContainer">
+            <p>No notes available. Add a new note using the form above.</p>
+        </div>
+        {{end}}
+
+        <div id="fillerContainer">
+            <p>
+                This notes feature demonstrates how the HeyAPI server can manage
+                data and render it dynamically.
+            </p>
+            <p>
+                Notes are stored in memory for now, but you can extend this to
+                use a database for persistence.
+            </p>
+        </div>
+    </body>
+</html>

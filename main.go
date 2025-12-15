@@ -32,8 +32,9 @@ func main() {
 
 	// this is the note API part
 	http.HandleFunc("/notes/create", handlers.CreateNoteHandler)
-	http.HandleFunc("/notes", handlers.GetNotesHandler)
-	http.HandleFunc("/notes/get", handlers.GetNoteHandler)
+	http.HandleFunc("/notes", handlers.ServeNotesPage)
+	http.HandleFunc("/notes/get", handlers.GetNotesHandler)
+	http.HandleFunc("/notes/getbyid", handlers.GetNoteHandler)
 	http.HandleFunc("/notes/delete", handlers.DeleteNoteHandler)
 
 	// Stdout Message
