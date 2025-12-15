@@ -45,6 +45,13 @@ type WeatherPageData struct {
 
 // Main logic
 func WeatherHandler(w http.ResponseWriter, r *http.Request) {
+	// Ensure the method is GET only
+	if r.Method != http.MethodGet {
+		log.Printf("Invalid method: %s. Only GET is allowed.", r.Method)
+		http.Error(w, "Method not allowed. Only GET is allowed.", http.StatusMethodNotAllowed)
+		return
+	}
+
 	// Retrieve the API key from environment variable
 	apiKey := os.Getenv("WEATHERAPI_KEY")
 	if apiKey == "" {
@@ -114,5 +121,7 @@ func WeatherHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Execute the template, injecting our `pageData` into the HTML placeholders.
+	w.WriteHeader(http.StatusOK)
 	tmpl.Execute(w, pageData)
+	log.Printf("Weather data for '%s' successfully retrieved, status: %d", city, http.StatusOK)
 }
