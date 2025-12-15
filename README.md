@@ -7,6 +7,7 @@ A simple web server built with Golang for serving static pages and RESTful APIs.
 *   Serves static HTML files.
 *   Handles HTTP requests for API endpoints.
 *   Basic routing and request handling.
+*   Dynamic note-taking feature with form submission and table display.
 
 ## 🚀 Getting Started
 
@@ -30,6 +31,7 @@ Once the server is running, you can open your web browser and navigate to:
 *   `http://localhost:8080/` - To access the home page.
 *   `http://localhost:8080/weather` - To access the weather page.
 *   `http://localhost:8080/currency` - To access the currency converter page.
+*   `http://localhost:8080/notes` - To access the notes page.
 
 #### API Key Setup
 
@@ -76,22 +78,25 @@ The currency converter page (`/currency`) fetches exchange rates from `api.fxrat
 
 The server also serves various API endpoints. You can test these using tools like `curl`, API clients like `Postman`, or FOSS alternatives like `Requestly`.
 
-Example API endpoint:
+#### Basic Endpoints
 
 *   **GET `/api`**: Returns a simple "Hey the API works!" message.
     ```bash
     curl http://localhost:8080/api
     ```
-*   **GET `/api/random`**: Returns a JSON object containing a random integer between 0 and 99.
+
+*   **GET `/random`**: Returns a JSON object containing a random integer between 0 and 99.
     ```bash
     curl http://localhost:8080/api/random
     ```
     Example response: `{"random": 42}`
+
 *   **GET `/api/version`**: Returns JSON object with server version, Go runtime version, and uptime.
     ```bash
     curl http://localhost:8080/api/version
     ```
     Example response: `{"go_version": "go1.21.0","status": "ok","uptime": "2m3.456s","version": "0.0.3"}`
+
 *   **POST `/api/echo`**: Accepts a JSON payload and echoes it back in the response.
     ```bash
     curl -X POST -H "Content-Type: application/json" -d '{"message": "Hello", "value": 123}' http://localhost:8080/api/echo
@@ -99,13 +104,29 @@ Example API endpoint:
     Example response (same as input payload): `{"message": "Hello", "value": 123}`
     *(Note: Only POST requests are allowed for this endpoint.)*
 
+#### Notes Endpoints
+
+*   **POST `/notes/create`**: Creates a new note. The note is submitted via a form or `curl`:
+    ```bash
+    curl -X POST -d "note=This is a test note" http://localhost:8080/notes/create
+    ```
+    After submission, the user is redirected to the `/notes` page.
+
+*   **GET `/notes`**: Displays the notes page with a form for creating notes and a table for viewing existing notes.
+
+*   **GET `/notes/get`**: Retrieves all notes in JSON format.
+
+*   **GET `/notes/getbyid?id=<id>`**: Retrieves a specific note by its ID.
+
+*   **DELETE `/notes/delete?id=<id>`**: Deletes a specific note by its ID.
+
 *(Note: API endpoints are defined in `main.go` and handled by functions in `handlers/` directory.)*
 
 ## 📂 Project Structure
 
 *   `main.go`: The entry point of the application, defining routes and handlers.
 *   `templates/`: Directory for static HTML templates (e.g., `index.html`).
-*   `handlers/`: Directory for API-specific handlers and logic.
+*   `handlers/`: Directory for API-specific handlers and logic (e.g., `random.go`, `note.go`).
 *   `.gitignore`: Specifies intentionally untracked files that Git should ignore (e.g., `.env` for API keys).
 
 ## 📝 TODO
@@ -113,7 +134,7 @@ Example API endpoint:
 - [x] Split `main.go` file into handlers for better organization.
 - [x] Implement a weather page using external API.
 - [x] Implement a currency exchange rate page using external API.
-- [ ] Fix the form in `templates/currency.html`.
+- [x] Fix the form in `templates/currency.html`.
 - [ ] Add a database (sqlite) to store information.
 - [ ] Implement additional API endpoints.
 - [ ] Implement a testing mechanism.
