@@ -129,16 +129,18 @@ The server also serves various API endpoints. You can test these using tools lik
 *   `handlers/`: Directory for API-specific handlers and logic (e.g., `random.go`, `note.go`).
 *   `.gitignore`: Specifies intentionally untracked files that Git should ignore (e.g., `.env` for API keys).
 
+## 🐳 Dockerization
+
+To containerize and run this project using Docker, follow the [Dockerization Guide](dockerize.md).
+
 ## 📝 TODO
 
 - [x] Split `main.go` file into handlers for better organization.
 - [x] Implement a weather page using external API.
 - [x] Implement a currency exchange rate page using external API.
 - [x] Fix the form in `templates/currency.html`.
-- [ ] Add a database (sqlite) to store information.
-- [ ] Implement additional API endpoints.
-- [ ] Implement a testing mechanism.
-- [ ] Dockerize the project.
+- [x] Dockerize the project.
+- [ ] Use LXC to containerize the project.
 
 ## 📢 Credits
 Shoutout to **The man, The myth, The legend: [ThePrimeagen](https://github.com/theprimeagen)** for introducing me to Go and helping me learn many things, *no joke* i learned half of my networking from him.
